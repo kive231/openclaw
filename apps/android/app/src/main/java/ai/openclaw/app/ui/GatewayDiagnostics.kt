@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.BuildConfig
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -16,7 +17,7 @@ internal fun openClawAndroidVersionLabel(): String {
   }
 }
 
-internal fun gatewayStatusForDisplay(statusText: String): String = statusText.trim().ifEmpty { "Offline" }
+internal fun gatewayStatusForDisplay(statusText: String): String = statusText.trim().ifEmpty { stringResource(R.string.offline_status) }
 
 internal fun gatewayStatusHasDiagnostics(statusText: String): Boolean {
   val lower = gatewayStatusForDisplay(statusText).lowercase()
@@ -37,7 +38,7 @@ internal fun buildGatewayDiagnosticsReport(
     listOfNotNull(Build.MANUFACTURER, Build.MODEL)
       .joinToString(" ")
       .trim()
-      .ifEmpty { "Android" }
+      .ifEmpty { stringResource(R.string.app_name_short) }
   val androidVersion =
     Build.VERSION.RELEASE
       ?.trim()
@@ -75,6 +76,6 @@ internal fun copyGatewayDiagnosticsReport(
 ) {
   val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return
   val report = buildGatewayDiagnosticsReport(screen = screen, gatewayAddress = gatewayAddress, statusText = statusText)
-  clipboard.setPrimaryClip(ClipData.newPlainText("OpenClaw gateway diagnostics", report))
-  Toast.makeText(context, "Copied gateway diagnostics", Toast.LENGTH_SHORT).show()
+  clipboard.setPrimaryClip(ClipData.newPlainText(stringResource(R.string.diag_title), report))
+  Toast.makeText(context, stringResource(R.string.copied_diag), Toast.LENGTH_SHORT).show()
 }
