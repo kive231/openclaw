@@ -106,12 +106,19 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 
 private enum class OnboardingStep(
   val index: Int,
-  val label: String,
 ) {
-  Welcome(1, stringResource(R.string.welcome_step)),
-  Gateway(2, stringResource(R.string.gateway_step)),
-  Permissions(3, stringResource(R.string.permissions_step)),
-  FinalCheck(4, stringResource(R.string.connect_step)),
+  Welcome(1),
+  Gateway(2),
+  Permissions(3),
+  FinalCheck(4);
+
+  @Composable
+  fun label(): String = when (this) {
+    Welcome -> stringResource(R.string.welcome_step)
+    Gateway -> stringResource(R.string.gateway_step)
+    Permissions -> stringResource(R.string.permissions_step)
+    FinalCheck -> stringResource(R.string.connect_step)
+  }
 }
 
 private enum class GatewayInputMode {
@@ -1020,7 +1027,7 @@ private fun StepRail(current: OnboardingStep) {
               ),
         )
         Text(
-          text = step.label,
+          text = step.label(),
           style = onboardingCaption2Style.copy(fontWeight = if (active) FontWeight.Bold else FontWeight.SemiBold),
           color = if (active) onboardingAccent else onboardingTextSecondary,
           maxLines = 1,
