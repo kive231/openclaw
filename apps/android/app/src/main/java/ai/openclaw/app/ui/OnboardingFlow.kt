@@ -1,6 +1,7 @@
 package ai.openclaw.app.ui
 import ai.openclaw.app.R
 
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.LocationMode
 import ai.openclaw.app.MainViewModel
@@ -395,20 +396,21 @@ fun OnboardingFlow(
       callLogAvailable,
       motionAvailable,
     ) {
+      val context = LocalContext.current
       val enabled = mutableListOf<String>()
-      if (enableDiscovery) enabled += stringResource(R.string.permission_discovery)
-      if (enableLocation) enabled += stringResource(R.string.permission_location)
-      if (enableNotifications) enabled += stringResource(R.string.permission_notifications)
-      if (enableNotificationListener) enabled += stringResource(R.string.permission_notification_listener)
-      if (enableMicrophone) enabled += stringResource(R.string.permission_microphone)
-      if (enableCamera) enabled += stringResource(R.string.permission_camera)
-      if (enablePhotos) enabled += stringResource(R.string.permission_photos)
-      if (enableContacts) enabled += stringResource(R.string.permission_contacts)
-      if (enableCalendar) enabled += stringResource(R.string.permission_calendar)
-      if (enableMotion && motionAvailable) enabled += stringResource(R.string.permission_motion)
-      if (smsAvailable && enableSms) enabled += stringResource(R.string.permission_sms)
-      if (callLogAvailable && enableCallLog) enabled += stringResource(R.string.permission_call_log)
-      if (enabled.isEmpty()) stringResource(R.string.none_selected) else enabled.joinToString(", ")
+      if (enableDiscovery) enabled += context.getString(R.string.permission_discovery)
+      if (enableLocation) enabled += context.getString(R.string.permission_location)
+      if (enableNotifications) enabled += context.getString(R.string.permission_notifications)
+      if (enableNotificationListener) enabled += context.getString(R.string.permission_notification_listener)
+      if (enableMicrophone) enabled += context.getString(R.string.permission_microphone)
+      if (enableCamera) enabled += context.getString(R.string.permission_camera)
+      if (enablePhotos) enabled += context.getString(R.string.permission_photos)
+      if (enableContacts) enabled += context.getString(R.string.permission_contacts)
+      if (enableCalendar) enabled += context.getString(R.string.permission_calendar)
+      if (enableMotion && motionAvailable) enabled += context.getString(R.string.permission_motion)
+      if (smsAvailable && enableSms) enabled += context.getString(R.string.permission_sms)
+      if (callLogAvailable && enableCallLog) enabled += context.getString(R.string.permission_call_log)
+      if (enabled.isEmpty()) context.getString(R.string.none_selected) else enabled.joinToString(", ")
     }
 
   val proceedFromPermissions: () -> Unit = proceed@{
@@ -823,7 +825,7 @@ fun OnboardingFlow(
                 if (gatewayInputMode == GatewayInputMode.SetupCode) {
                   val parsedSetup = decodeGatewaySetupCode(setupCode)
                   if (parsedSetup == null) {
-                    gatewayError = stringResource(R.string.scan_qr_first)
+                    gatewayError = context.getString(R.string.scan_qr_first)
                     return@Button
                   }
                   val parsedGateway = parseGatewayEndpointResult(parsedSetup.url)
