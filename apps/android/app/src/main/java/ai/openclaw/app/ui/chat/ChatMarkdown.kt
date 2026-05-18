@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui.chat
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.ui.mobileAccent
 import ai.openclaw.app.ui.mobileCallout
 import ai.openclaw.app.ui.mobileCaption1
@@ -683,7 +684,7 @@ private fun InlineBase64Image(
     )
   } else if (imageState.failed) {
     Text(
-      text = "Image unavailable",
+      text = stringResource(R.string.image_unavailable),
       modifier = Modifier.padding(vertical = 2.dp),
       style = mobileCaption1,
       color = mobileTextSecondary,
