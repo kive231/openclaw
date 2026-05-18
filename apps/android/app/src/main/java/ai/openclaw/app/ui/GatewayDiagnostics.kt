@@ -18,18 +18,22 @@ internal fun openClawAndroidVersionLabel(): String {
   }
 }
 
+@Composable
 internal fun gatewayStatusForDisplay(statusText: String): String = statusText.trim().ifEmpty { stringResource(R.string.offline_status) }
 
+@Composable
 internal fun gatewayStatusHasDiagnostics(statusText: String): Boolean {
   val lower = gatewayStatusForDisplay(statusText).lowercase()
   return lower != "offline" && !lower.contains("connecting")
 }
 
+@Composable
 internal fun gatewayStatusLooksLikePairing(statusText: String): Boolean {
   val lower = gatewayStatusForDisplay(statusText).lowercase()
   return lower.contains("pair") || lower.contains("approve")
 }
 
+@Composable
 internal fun buildGatewayDiagnosticsReport(
   screen: String,
   gatewayAddress: String,
@@ -39,7 +43,7 @@ internal fun buildGatewayDiagnosticsReport(
     listOfNotNull(Build.MANUFACTURER, Build.MODEL)
       .joinToString(" ")
       .trim()
-      .ifEmpty { stringResource(R.string.app_name_short) }
+      .ifEmpty { LocalContext.current.getString(R.string.app_name_short) }
   val androidVersion =
     Build.VERSION.RELEASE
       ?.trim()
