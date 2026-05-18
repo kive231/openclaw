@@ -52,14 +52,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
 private enum class HomeTab(
-  val label: String,
   val icon: ImageVector,
 ) {
-  Connect(label = stringResource(R.string.tab_connect), icon = Icons.Default.CheckCircle),
-  Chat(label = stringResource(R.string.tab_chat), icon = Icons.Default.ChatBubble),
-  Voice(label = stringResource(R.string.tab_voice), icon = Icons.Default.RecordVoiceOver),
-  Screen(label = stringResource(R.string.tab_screen), icon = Icons.AutoMirrored.Filled.ScreenShare),
-  Settings(label = stringResource(R.string.tab_settings), icon = Icons.Default.Settings),
+  Connect(icon = Icons.Default.CheckCircle),
+  Chat(icon = Icons.Default.ChatBubble),
+  Voice(icon = Icons.Default.RecordVoiceOver),
+  Screen(icon = Icons.AutoMirrored.Filled.ScreenShare),
+  Settings(icon = Icons.Default.Settings);
+
+  @Composable
+  fun label(): String = when (this) {
+    Connect -> stringResource(R.string.tab_connect)
+    Chat -> stringResource(R.string.tab_chat)
+    Voice -> stringResource(R.string.tab_voice)
+    Screen -> stringResource(R.string.tab_screen)
+    Settings -> stringResource(R.string.tab_settings)
+  }
 }
 
 private enum class StatusVisual {
@@ -342,11 +350,11 @@ private fun BottomTabBar(
             ) {
               Icon(
                 imageVector = tab.icon,
-                contentDescription = tab.label,
+                contentDescription = tab.label(),
                 tint = if (active) mobileAccent else mobileTextTertiary,
               )
               Text(
-                text = tab.label,
+                text = tab.label(),
                 color = if (active) mobileAccent else mobileTextSecondary,
                 style = mobileCaption2.copy(fontWeight = if (active) FontWeight.Bold else FontWeight.Medium),
               )
