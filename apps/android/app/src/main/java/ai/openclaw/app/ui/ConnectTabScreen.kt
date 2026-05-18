@@ -143,8 +143,8 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
     remember(isConnected, remoteAddress, setupResolvedEndpoint, manualResolvedEndpoint, inputMode) {
       when {
         isConnected && !remoteAddress.isNullOrBlank() -> remoteAddress!!
-        inputMode == ConnectInputMode.SetupCode -> setupResolvedEndpoint ?: stringResource(R.string.not_set)
-        else -> manualResolvedEndpoint ?: stringResource(R.string.not_set)
+        inputMode == ConnectInputMode.SetupCode -> setupResolvedEndpoint ?: context.getString(R.string.not_set)
+        else -> manualResolvedEndpoint ?: context.getString(R.string.not_set)
       }
     }
 
