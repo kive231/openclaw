@@ -148,7 +148,6 @@
     <string name="invalid_qr">二维码不含有效的设置码。</string>
     <string name="invalid_manual">请输入有效的终端地址以连接。</string>
 
-</resources>    <string name="forward_notifications">转发通知事件</string>
     <string name="pkg_filter_allowlist">包过滤器：白名单</string>
     <string name="allowlist_desc">仅转发列表中指定的包 ID。</string>
     <string name="pkg_filter_blocklist">包过滤器：黑名单</string>
@@ -190,3 +189,5 @@
     <string name="prevent_sleep_desc">保持屏幕常亮。</string>
     <string name="debug_canvas">调试画布</string>
     <string name="debug_canvas_desc">在画布上显示状态叠加层。</string>
+
+</resources>
