@@ -1,4 +1,5 @@
 package ai.openclaw.app.ui.chat
+import ai.openclaw.app.R
 
 import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.chat.ChatMessage
@@ -226,6 +227,7 @@ private fun bubbleStyle(role: String): ChatBubbleStyle =
       )
   }
 
+@Composable
 private fun roleLabel(role: String): String =
   when (role) {
     "user" -> stringResource(R.string.you)
