@@ -403,7 +403,6 @@ fun OnboardingFlow(
       callLogAvailable,
       motionAvailable,
     ) {
-      val context = LocalContext.current
       val enabled = mutableListOf<String>()
       if (enableDiscovery) enabled += context.getString(R.string.permission_discovery)
       if (enableLocation) enabled += context.getString(R.string.permission_location)
