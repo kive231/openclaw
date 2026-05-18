@@ -144,7 +144,7 @@ fun SettingsSheet(viewModel: MainViewModel) {
       listOfNotNull(Build.MANUFACTURER, Build.MODEL)
         .joinToString(" ")
         .trim()
-        .ifEmpty { LocalContext.current.getString(R.string.app_name_short) }
+        .ifEmpty { context.getString(R.string.app_name_short) }
     }
   val appVersion =
     remember {
