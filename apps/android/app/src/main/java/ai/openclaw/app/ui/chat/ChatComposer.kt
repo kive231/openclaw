@@ -1,4 +1,5 @@
 package ai.openclaw.app.ui.chat
+import ai.openclaw.app.R
 
 import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.ui.mobileAccent
@@ -314,6 +315,7 @@ private fun ThinkingMenuItem(
   )
 }
 
+@Composable
 private fun thinkingLabel(raw: String): String =
   when (raw.trim().lowercase()) {
     "low" -> stringResource(R.string.thinking_low)
