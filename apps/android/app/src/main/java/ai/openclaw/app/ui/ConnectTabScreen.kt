@@ -272,7 +272,7 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
               if (inputMode == ConnectInputMode.SetupCode) {
                 val parsedSetup = decodeGatewaySetupCode(setupCode)
                 if (parsedSetup == null) {
-                  stringResource(R.string.paste_setup_code)
+                  context.getString(R.string.paste_setup_code)
                 } else {
                   val parsedGateway = parseGatewayEndpointResult(parsedSetup.url)
                   gatewayEndpointValidationMessage(
