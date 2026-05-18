@@ -1,0 +1,42 @@
+name: Android APK Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch to build from'
+        required: false
+        default: 'main'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-24.04-arm
+    defaults:
+      run:
+        working-directory: apps/android
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        run: ./gradlew :app:assemblePlayDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-android-apk
+          path: apps/android/app/build/outputs/apk/play/debug/*.apk
+          if-no-files-found: error
