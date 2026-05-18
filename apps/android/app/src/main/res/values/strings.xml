@@ -147,47 +147,6 @@
     <string name="invalid_setup_code" formatted="false">设置码包含无效的网关 URL。</string>
     <string name="invalid_qr" formatted="false">二维码不含有效的设置码。</string>
     <string name="invalid_manual" formatted="false">请输入有效的终端地址以连接。</string>
-    <string name="pkg_filter_allowlist" formatted="false">包过滤器：白名单</string>
-    <string name="allowlist_desc" formatted="false">仅转发列表中指定的包 ID。</string>
-    <string name="pkg_filter_blocklist" formatted="false">包过滤器：黑名单</string>
-    <string name="blocklist_desc" formatted="false">除列表中指定的包外，转发所有包。</string>
-    <string name="search_apps" formatted="false">搜索应用</string>
-    <string name="show_system_apps" formatted="false">显示系统应用</string>
-    <string name="system_apps_desc" formatted="false">在结果中包含 Android/系统包。</string>
-    <string name="quiet_hours" formatted="false">免打扰时段</string>
-    <string name="quiet_hours_desc" formatted="false">在本地时间窗口内抑制通知转发。</string>
-    <string name="quiet_start" formatted="false">开始时间 (HH:mm)</string>
-    <string name="quiet_start_hint" formatted="false">使用 24 小时 HH:mm 格式，例如 22:00。</string>
-    <string name="quiet_end" formatted="false">结束时间 (HH:mm)</string>
-    <string name="quiet_end_hint" formatted="false">使用 24 小时 HH:mm 格式，例如 07:00。</string>
-    <string name="save_quiet_hours" formatted="false">保存免打扰时段</string>
-    <string name="max_events_per_min" formatted="false">最大事件数/分钟</string>
-    <string name="save_rate" formatted="false">保存频率</string>
-    <string name="save_session_route" formatted="false">保存会话路由</string>
-    <string name="finish" formatted="false">完成</string>
-    <string name="scan_qr" formatted="false">扫描二维码</string>
-    <string name="qr_captured" formatted="false">二维码已捕获。请在下方查看端点和指纹。</string>
-    <string name="advanced_setup" formatted="false">高级设置</string>
-    <string name="setup_code_label" formatted="false">设置码</string>
-    <string name="section_photos" formatted="false">照片</string>
-    <string name="photos_desc" formatted="false">访问最近的照片。</string>
-    <string name="section_contacts" formatted="false">联系人</string>
-    <string name="contacts_desc" formatted="false">搜索和添加联系人。</string>
-    <string name="section_calendar" formatted="false">日历</string>
-    <string name="calendar_desc" formatted="false">读取和创建事件。</string>
-    <string name="call_log" formatted="false">通话记录</string>
-    <string name="call_log_desc" formatted="false">搜索最近的通话历史。</string>
-    <string name="motion_desc" formatted="false">追踪步数和活动。</string>
-    <string name="location_off" formatted="false">关闭</string>
-    <string name="location_off_desc" formatted="false">禁用位置共享。</string>
-    <string name="location_while_using" formatted="false">使用时</string>
-    <string name="location_while_desc" formatted="false">仅在 OpenClaw 开启时。</string>
-    <string name="location_precise" formatted="false">精确位置</string>
-    <string name="location_precise_desc" formatted="false">可用时使用精确 GPS。</string>
-    <string name="prevent_sleep" formatted="false">阻止休眠</string>
-    <string name="prevent_sleep_desc" formatted="false">保持屏幕常亮。</string>
-    <string name="debug_canvas" formatted="false">调试画布</string>
-    <string name="debug_canvas_desc" formatted="false">在画布上显示状态叠加层。</string>
 
     <string name="forward_notifications">Forward Notification Events</string>
     <string name="pkg_filter_allowlist">Package Filter: Allowlist</string>
