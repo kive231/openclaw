@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui.chat
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.MainViewModel
 import ai.openclaw.app.chat.ChatSessionEntry
 import ai.openclaw.app.chat.OutgoingAttachment
@@ -241,7 +242,7 @@ private fun ChatErrorRail(errorText: String) {
   ) {
     Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
       Text(
-        text = "CHAT ERROR",
+        text = stringResource(R.string.chat_error),
         style = mobileCaption2.copy(letterSpacing = 0.6.sp),
         color = mobileDanger,
       )
