@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui.chat
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.chat.ChatMessage
 import ai.openclaw.app.chat.ChatMessageContent
 import ai.openclaw.app.chat.ChatPendingToolCall
@@ -139,7 +140,7 @@ fun ChatTypingIndicatorBubble() {
       horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       DotPulse(color = mobileTextSecondary)
-      Text("Thinking...", style = mobileCallout, color = mobileTextSecondary)
+      Text(stringResource(R.string.thinking_ellipsis), style = mobileCallout, color = mobileTextSecondary)
     }
   }
 }
@@ -154,10 +155,10 @@ fun ChatPendingToolsBubble(toolCalls: List<ChatPendingToolCall>) {
 
   ChatBubbleContainer(
     style = bubbleStyle("assistant"),
-    roleLabel = "Tools",
+    roleLabel = stringResource(R.string.tools),
   ) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-      Text("Running tools...", style = mobileCaption1.copy(fontWeight = FontWeight.SemiBold), color = mobileTextSecondary)
+      Text(stringResource(R.string.running_tools), style = mobileCaption1.copy(fontWeight = FontWeight.SemiBold), color = mobileTextSecondary)
       for (display in displays.take(6)) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
           Text(
@@ -191,7 +192,7 @@ fun ChatPendingToolsBubble(toolCalls: List<ChatPendingToolCall>) {
 fun ChatStreamingAssistantBubble(text: String) {
   ChatBubbleContainer(
     style = bubbleStyle("assistant").copy(borderColor = mobileAccent),
-    roleLabel = "OpenClaw · Live",
+    roleLabel = stringResource(R.string.openclaw_live),
   ) {
     ChatMarkdown(text = text, textColor = mobileText)
   }
@@ -227,9 +228,9 @@ private fun bubbleStyle(role: String): ChatBubbleStyle =
 
 private fun roleLabel(role: String): String =
   when (role) {
-    "user" -> "You"
-    "system" -> "System"
-    else -> "OpenClaw"
+    "user" -> stringResource(R.string.you)
+    "system" -> stringResource(R.string.system)
+    else -> stringResource(R.string.app_name_short)
   }
 
 @Composable
@@ -255,7 +256,7 @@ private fun ChatBase64Image(
       )
     }
   } else if (imageState.failed) {
-    Text("Unsupported attachment", style = mobileCaption1, color = mobileTextSecondary)
+    Text(stringResource(R.string.unsupported_attachment), style = mobileCaption1, color = mobileTextSecondary)
   }
 }
 
