@@ -1,6 +1,5 @@
 package ai.openclaw.app.ui
 import ai.openclaw.app.R
-import androidx.compose.runtime.Composable
 
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
@@ -20,39 +19,37 @@ internal fun openClawAndroidVersionLabel(): String {
   }
 }
 
-@Composable
-internal fun gatewayStatusForDisplay(statusText: String): String = statusText.trim().ifEmpty { stringResource(R.string.offline_status) }
+internal fun gatewayStatusForDisplay(statusText: String, offlineLabel: String = "offline"): String = statusText.trim().ifEmpty { offlineLabel }
 
-@Composable
 internal fun gatewayStatusHasDiagnostics(statusText: String): Boolean {
   val lower = gatewayStatusForDisplay(statusText).lowercase()
   return lower != "offline" && !lower.contains("connecting")
 }
 
-@Composable
 internal fun gatewayStatusLooksLikePairing(statusText: String): Boolean {
   val lower = gatewayStatusForDisplay(statusText).lowercase()
   return lower.contains("pair") || lower.contains("approve")
 }
 
-@Composable
 internal fun buildGatewayDiagnosticsReport(
   screen: String,
   gatewayAddress: String,
   statusText: String,
+  deviceNameLabel: String = "OpenClaw",
+  offlineLabel: String = "offline",
 ): String {
   val device =
     listOfNotNull(Build.MANUFACTURER, Build.MODEL)
       .joinToString(" ")
       .trim()
-      .ifEmpty { LocalContext.current.getString(R.string.app_name_short) }
+      .ifEmpty { deviceNameLabel }
   val androidVersion =
     Build.VERSION.RELEASE
       ?.trim()
       .orEmpty()
       .ifEmpty { Build.VERSION.SDK_INT.toString() }
   val endpoint = gatewayAddress.trim().ifEmpty { "unknown" }
-  val status = gatewayStatusForDisplay(statusText)
+  val status = gatewayStatusForDisplay(statusText, offlineLabel = offlineLabel)
   return """
     Help diagnose this OpenClaw Android gateway connection failure.
 
@@ -82,7 +79,14 @@ internal fun copyGatewayDiagnosticsReport(
   statusText: String,
 ) {
   val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return
-  val report = buildGatewayDiagnosticsReport(screen = screen, gatewayAddress = gatewayAddress, statusText = statusText)
-  clipboard.setPrimaryClip(ClipData.newPlainText(stringResource(R.string.diag_title), report))
-  Toast.makeText(context, stringResource(R.string.copied_diag), Toast.LENGTH_SHORT).show()
+  val deviceName = listOfNotNull(Build.MANUFACTURER, Build.MODEL).joinToString(" ").trim().ifEmpty { "OpenClaw" }
+  val report = buildGatewayDiagnosticsReport(
+    screen = screen,
+    gatewayAddress = gatewayAddress,
+    statusText = statusText,
+    deviceNameLabel = deviceName,
+    offlineLabel = context.getString(R.string.offline_status),
+  )
+  clipboard.setPrimaryClip(ClipData.newPlainText(context.getString(R.string.diag_title), report))
+  Toast.makeText(context, context.getString(R.string.copied_diag), Toast.LENGTH_SHORT).show()
 }
