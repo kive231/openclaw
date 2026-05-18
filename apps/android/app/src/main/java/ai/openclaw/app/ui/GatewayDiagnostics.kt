@@ -3,6 +3,7 @@ import ai.openclaw.app.R
 import androidx.compose.runtime.Composable
 
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import ai.openclaw.app.BuildConfig
 import android.content.ClipData
 import android.content.ClipboardManager
