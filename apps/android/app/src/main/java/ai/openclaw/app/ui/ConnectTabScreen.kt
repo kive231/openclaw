@@ -150,7 +150,7 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
 
   val showDiagnostics = !isConnected && gatewayStatusHasDiagnostics(statusText)
   val pairingRequired = !isConnected && gatewayStatusLooksLikePairing(statusText)
-  val statusLabel = gatewayStatusForDisplay(statusText)
+  val statusLabel = gatewayStatusForDisplay(statusText, offlineLabel = stringResource(R.string.offline_status))
 
   PairingAutoRetryEffect(enabled = pairingRequired) {
     viewModel.refreshGatewayConnection()
