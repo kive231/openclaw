@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui.chat
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.ui.mobileAccent
 import ai.openclaw.app.ui.mobileAccentBorderStrong
 import ai.openclaw.app.ui.mobileAccentSoft
@@ -131,7 +132,7 @@ fun ChatComposer(
       value = input,
       onValueChange = { input = it },
       modifier = Modifier.fillMaxWidth(),
-      placeholder = { Text("Type a message…", style = mobileBodyStyle(), color = mobileTextTertiary) },
+      placeholder = { Text(stringResource(R.string.type_message), style = mobileBodyStyle(), color = mobileTextTertiary) },
       minLines = 2,
       maxLines = 5,
       textStyle = mobileBodyStyle().copy(color = mobileText),
@@ -141,7 +142,7 @@ fun ChatComposer(
 
     if (!healthOk) {
       Text(
-        text = "Gateway is offline. Connect first in the Connect tab.",
+        text = stringResource(R.string.gateway_offline),
         style = mobileCallout,
         color = ai.openclaw.app.ui.mobileWarning,
       )
@@ -170,7 +171,7 @@ fun ChatComposer(
             )
             Icon(
               Icons.Default.ArrowDropDown,
-              contentDescription = "Select thinking level",
+              contentDescription = stringResource(R.string.select_thinking),
               modifier = Modifier.size(18.dp),
               tint = mobileTextTertiary,
             )
@@ -194,7 +195,7 @@ fun ChatComposer(
       }
 
       SecondaryActionButton(
-        label = "Attach",
+        label = stringResource(R.string.attach),
         icon = Icons.Default.AttachFile,
         enabled = true,
         compact = true,
@@ -202,7 +203,7 @@ fun ChatComposer(
       )
 
       SecondaryActionButton(
-        label = "Refresh",
+        label = stringResource(R.string.refresh),
         icon = Icons.Default.Refresh,
         enabled = true,
         compact = true,
@@ -210,7 +211,7 @@ fun ChatComposer(
       )
 
       SecondaryActionButton(
-        label = "Abort",
+        label = stringResource(R.string.abort),
         icon = Icons.Default.Stop,
         enabled = pendingRunCount > 0,
         compact = true,
@@ -245,7 +246,7 @@ fun ChatComposer(
         }
         Spacer(modifier = Modifier.width(6.dp))
         Text(
-          text = "Send",
+          text = stringResource(R.string.send),
           style = mobileHeadline.copy(fontWeight = FontWeight.Bold),
           maxLines = 1,
           overflow = TextOverflow.Ellipsis,
@@ -315,10 +316,10 @@ private fun ThinkingMenuItem(
 
 private fun thinkingLabel(raw: String): String =
   when (raw.trim().lowercase()) {
-    "low" -> "Low"
-    "medium" -> "Medium"
-    "high" -> "High"
-    else -> "Off"
+    "low" -> stringResource(R.string.thinking_low)
+    "medium" -> stringResource(R.string.thinking_medium)
+    "high" -> stringResource(R.string.thinking_high)
+    else -> stringResource(R.string.thinking_off)
   }
 
 @Composable
