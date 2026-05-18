@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.HomeDestination
 import ai.openclaw.app.MainViewModel
 import androidx.compose.foundation.BorderStroke
@@ -53,11 +54,11 @@ private enum class HomeTab(
   val label: String,
   val icon: ImageVector,
 ) {
-  Connect(label = "Connect", icon = Icons.Default.CheckCircle),
-  Chat(label = "Chat", icon = Icons.Default.ChatBubble),
-  Voice(label = "Voice", icon = Icons.Default.RecordVoiceOver),
-  Screen(label = "Screen", icon = Icons.AutoMirrored.Filled.ScreenShare),
-  Settings(label = "Settings", icon = Icons.Default.Settings),
+  Connect(label = stringResource(R.string.tab_connect), icon = Icons.Default.CheckCircle),
+  Chat(label = stringResource(R.string.tab_chat), icon = Icons.Default.ChatBubble),
+  Voice(label = stringResource(R.string.tab_voice), icon = Icons.Default.RecordVoiceOver),
+  Screen(label = stringResource(R.string.tab_screen), icon = Icons.AutoMirrored.Filled.ScreenShare),
+  Settings(label = stringResource(R.string.tab_settings), icon = Icons.Default.Settings),
 }
 
 private enum class StatusVisual {
@@ -262,7 +263,7 @@ private fun TopStatusBar(
       horizontalArrangement = Arrangement.SpaceBetween,
     ) {
       Text(
-        text = "OpenClaw",
+        text = stringResource(R.string.app_name_short),
         style = mobileTitle2,
         color = mobileText,
       )
