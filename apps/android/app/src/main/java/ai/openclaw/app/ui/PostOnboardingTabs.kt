@@ -1,4 +1,5 @@
 package ai.openclaw.app.ui
+import ai.openclaw.app.R
 
 import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.HomeDestination
