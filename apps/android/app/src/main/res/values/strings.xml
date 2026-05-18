@@ -189,4 +189,47 @@
     <string name="debug_canvas" formatted="false">调试画布</string>
     <string name="debug_canvas_desc" formatted="false">在画布上显示状态叠加层。</string>
 
+    <string name="forward_notifications">Forward Notification Events</string>
+    <string name="pkg_filter_allowlist">Package Filter: Allowlist</string>
+    <string name="allowlist_desc">Only listed package IDs are forwarded.</string>
+    <string name="pkg_filter_blocklist">Package Filter: Blocklist</string>
+    <string name="blocklist_desc">All packages except listed IDs are forwarded.</string>
+    <string name="search_apps">Search apps</string>
+    <string name="show_system_apps">Show System Apps</string>
+    <string name="system_apps_desc">Include Android/system packages in results.</string>
+    <string name="quiet_hours">Quiet Hours</string>
+    <string name="quiet_hours_desc">Suppress forwarding during a local time window.</string>
+    <string name="quiet_start">Quiet Start (HH:mm)</string>
+    <string name="quiet_start_hint">Use 24-hour HH:mm format, for example 22:00.</string>
+    <string name="quiet_end">Quiet End (HH:mm)</string>
+    <string name="quiet_end_hint">Use 24-hour HH:mm format, for example 07:00.</string>
+    <string name="save_quiet_hours">Save Quiet Hours</string>
+    <string name="max_events_per_min">Max Events / Minute</string>
+    <string name="save_rate">Save Rate</string>
+    <string name="save_session_route">Save Session Route</string>
+    <string name="finish">Finish</string>
+    <string name="scan_qr">Scan QR code</string>
+    <string name="qr_captured">QR captured. Review endpoint below.</string>
+    <string name="advanced_setup">Advanced setup</string>
+    <string name="setup_code_label">SETUP CODE</string>
+    <string name="section_photos">Photos</string>
+    <string name="photos_desc">Access recent photos.</string>
+    <string name="section_contacts">Contacts</string>
+    <string name="contacts_desc">Search and add contacts.</string>
+    <string name="section_calendar">Calendar</string>
+    <string name="calendar_desc">Read and create events.</string>
+    <string name="call_log">Call Log</string>
+    <string name="call_log_desc">Search recent call history.</string>
+    <string name="motion_desc">Track steps and activity.</string>
+    <string name="location_off">Off</string>
+    <string name="location_off_desc">Disable location sharing.</string>
+    <string name="location_while_using">While Using</string>
+    <string name="location_while_desc">Only while OpenClaw is open.</string>
+    <string name="location_precise">Precise Location</string>
+    <string name="location_precise_desc">Use precise GPS when available.</string>
+    <string name="prevent_sleep">Prevent Sleep</string>
+    <string name="prevent_sleep_desc">Keep screen awake while open.</string>
+    <string name="debug_canvas">Debug Canvas</string>
+    <string name="debug_canvas_desc">Show status overlay on canvas.</string>
+
 </resources>
