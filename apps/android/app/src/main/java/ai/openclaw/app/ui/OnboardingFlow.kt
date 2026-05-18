@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui
 
+import androidx.compose.ui.res.stringResource
 import ai.openclaw.app.LocationMode
 import ai.openclaw.app.MainViewModel
 import ai.openclaw.app.SensitiveFeatureConfig
@@ -105,10 +106,10 @@ private enum class OnboardingStep(
   val index: Int,
   val label: String,
 ) {
-  Welcome(1, "Welcome"),
-  Gateway(2, "Gateway"),
-  Permissions(3, "Permissions"),
-  FinalCheck(4, "Connect"),
+  Welcome(1, stringResource(R.string.welcome_step)),
+  Gateway(2, stringResource(R.string.gateway_step)),
+  Permissions(3, stringResource(R.string.permissions_step)),
+  FinalCheck(4, stringResource(R.string.connect_step)),
 }
 
 private enum class GatewayInputMode {
@@ -394,19 +395,19 @@ fun OnboardingFlow(
       motionAvailable,
     ) {
       val enabled = mutableListOf<String>()
-      if (enableDiscovery) enabled += "Gateway discovery"
-      if (enableLocation) enabled += "Location"
-      if (enableNotifications) enabled += "Notifications"
-      if (enableNotificationListener) enabled += "Notification listener"
-      if (enableMicrophone) enabled += "Microphone"
-      if (enableCamera) enabled += "Camera"
-      if (enablePhotos) enabled += "Photos"
-      if (enableContacts) enabled += "Contacts"
-      if (enableCalendar) enabled += "Calendar"
-      if (enableMotion && motionAvailable) enabled += "Motion"
-      if (smsAvailable && enableSms) enabled += "SMS"
-      if (callLogAvailable && enableCallLog) enabled += "Call Log"
-      if (enabled.isEmpty()) "None selected" else enabled.joinToString(", ")
+      if (enableDiscovery) enabled += stringResource(R.string.permission_discovery)
+      if (enableLocation) enabled += stringResource(R.string.permission_location)
+      if (enableNotifications) enabled += stringResource(R.string.permission_notifications)
+      if (enableNotificationListener) enabled += stringResource(R.string.permission_notification_listener)
+      if (enableMicrophone) enabled += stringResource(R.string.permission_microphone)
+      if (enableCamera) enabled += stringResource(R.string.permission_camera)
+      if (enablePhotos) enabled += stringResource(R.string.permission_photos)
+      if (enableContacts) enabled += stringResource(R.string.permission_contacts)
+      if (enableCalendar) enabled += stringResource(R.string.permission_calendar)
+      if (enableMotion && motionAvailable) enabled += stringResource(R.string.permission_motion)
+      if (smsAvailable && enableSms) enabled += stringResource(R.string.permission_sms)
+      if (callLogAvailable && enableCallLog) enabled += stringResource(R.string.permission_call_log)
+      if (enabled.isEmpty()) stringResource(R.string.none_selected) else enabled.joinToString(", ")
     }
 
   val proceedFromPermissions: () -> Unit = proceed@{
@@ -495,7 +496,7 @@ fun OnboardingFlow(
     AlertDialog(
       onDismissRequest = { viewModel.declineGatewayTrustPrompt() },
       containerColor = onboardingSurface,
-      title = { Text("Trust this gateway?", style = onboardingHeadlineStyle, color = onboardingText) },
+      title = { Text(stringResource(R.string.trust_gateway), style = onboardingHeadlineStyle, color = onboardingText) },
       text = {
         val message =
           if (prompt.previousFingerprintSha256.isNullOrBlank()) {
@@ -514,7 +515,7 @@ fun OnboardingFlow(
           onClick = { viewModel.acceptGatewayTrustPrompt() },
           colors = ButtonDefaults.textButtonColors(contentColor = onboardingAccent),
         ) {
-          Text("Trust and continue")
+          Text(stringResource(R.string.trust_and_continue))
         }
       },
       dismissButton = {
@@ -522,7 +523,7 @@ fun OnboardingFlow(
           onClick = { viewModel.declineGatewayTrustPrompt() },
           colors = ButtonDefaults.textButtonColors(contentColor = onboardingTextSecondary),
         ) {
-          Text("Cancel")
+          Text(stringResource(R.string.cancel))
         }
       },
     )
@@ -553,12 +554,12 @@ fun OnboardingFlow(
           verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
           Text(
-            "OpenClaw",
+            stringResource(R.string.app_name_short),
             style = onboardingDisplayStyle,
             color = onboardingText,
           )
           Text(
-            "Mobile Setup",
+            stringResource(R.string.mobile_setup),
             style = onboardingTitle1Style,
             color = onboardingTextSecondary,
           )
@@ -765,7 +766,7 @@ fun OnboardingFlow(
               remoteAddress = remoteAddress,
               attemptedConnect = attemptedConnect,
               enabledPermissions = enabledPermissionSummary,
-              methodLabel = if (gatewayInputMode == GatewayInputMode.SetupCode) "QR / Setup Code" else "Manual",
+              methodLabel = if (gatewayInputMode == GatewayInputMode.SetupCode) stringResource(R.string.qr_setup_code) else "Manual",
             )
         }
       }
@@ -798,7 +799,7 @@ fun OnboardingFlow(
           ) {
             Icon(
               Icons.AutoMirrored.Filled.ArrowBack,
-              contentDescription = "Back",
+              contentDescription = stringResource(R.string.back),
               tint = if (backEnabled) onboardingTextSecondary else onboardingTextTertiary,
             )
           }
@@ -812,7 +813,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.Gateway -> {
@@ -821,7 +822,7 @@ fun OnboardingFlow(
                 if (gatewayInputMode == GatewayInputMode.SetupCode) {
                   val parsedSetup = decodeGatewaySetupCode(setupCode)
                   if (parsedSetup == null) {
-                    gatewayError = "Scan QR code first, or use Advanced setup."
+                    gatewayError = stringResource(R.string.scan_qr_first)
                     return@Button
                   }
                   val parsedGateway = parseGatewayEndpointResult(parsedSetup.url)
@@ -867,7 +868,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.Permissions -> {
@@ -881,7 +882,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.FinalCheck -> {
@@ -943,7 +944,7 @@ fun OnboardingFlow(
                 shape = RoundedCornerShape(14.dp),
                 colors = onboardingPrimaryButtonColors(),
               ) {
-                Text("Connect", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+                Text(stringResource(R.string.connect_step), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
               }
             }
           }
@@ -1100,7 +1101,7 @@ private fun GatewayStep(
       Text("Scan QR code", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
     }
     if (!resolvedEndpoint.isNullOrBlank()) {
-      Text("QR captured. Review endpoint below.", style = onboardingCalloutStyle, color = onboardingSuccess)
+      Text(stringResource(R.string.qr_captured), style = onboardingCalloutStyle, color = onboardingSuccess)
       ResolvedEndpoint(endpoint = resolvedEndpoint)
     }
 
@@ -1117,7 +1118,7 @@ private fun GatewayStep(
         horizontalArrangement = Arrangement.SpaceBetween,
       ) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-          Text("Advanced setup", style = onboardingHeadlineStyle, color = onboardingText)
+          Text(stringResource(R.string.advanced_setup), style = onboardingHeadlineStyle, color = onboardingText)
           Text(
             "Paste setup code or enter host/port manually. Private LAN ws:// is supported; Tailscale/public hosts need wss://.",
             style = onboardingCaption1Style,
@@ -1137,7 +1138,7 @@ private fun GatewayStep(
         GatewayModeToggle(inputMode = inputMode, onInputModeChange = onInputModeChange)
 
         if (inputMode == GatewayInputMode.SetupCode) {
-          Text("SETUP CODE", style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
+          Text(stringResource(R.string.setup_code_label), style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
           OutlinedTextField(
             value = setupCode,
             onValueChange = onSetupCodeChange,
@@ -1457,16 +1458,16 @@ private fun PermissionsStep(
     }
   val notificationListenerGranted = isNotificationListenerEnabled(context)
 
-  StepShell(title = "Permissions") {
+  StepShell(title = stringResource(R.string.permissions_step)) {
     Text(
       "Enable only what you need. You can change these anytime in Settings.",
       style = onboardingCalloutStyle,
       color = onboardingTextSecondary,
     )
 
-    PermissionSectionHeader("System")
+    PermissionSectionHeader(stringResource(R.string.system))
     PermissionToggleRow(
-      title = "Gateway discovery",
+      title = stringResource(R.string.permission_discovery),
       subtitle = "Find gateways on your local network",
       checked = enableDiscovery,
       granted = isPermissionGranted(context, discoveryPermission),
@@ -1474,7 +1475,7 @@ private fun PermissionsStep(
     )
     InlineDivider()
     PermissionToggleRow(
-      title = "Location",
+      title = stringResource(R.string.permission_location),
       subtitle = "Share device location while app is open",
       checked = enableLocation,
       granted = locationGranted,
@@ -1483,7 +1484,7 @@ private fun PermissionsStep(
     InlineDivider()
     if (Build.VERSION.SDK_INT >= 33) {
       PermissionToggleRow(
-        title = "Notifications",
+        title = stringResource(R.string.permission_notifications),
         subtitle = "Alerts and foreground service notices",
         checked = enableNotifications,
         granted = isPermissionGranted(context, Manifest.permission.POST_NOTIFICATIONS),
@@ -1492,7 +1493,7 @@ private fun PermissionsStep(
       InlineDivider()
     }
     PermissionToggleRow(
-      title = "Notification listener",
+      title = stringResource(R.string.permission_notification_listener),
       subtitle = "Read and act on your notifications",
       checked = enableNotificationListener,
       granted = notificationListenerGranted,
@@ -1501,7 +1502,7 @@ private fun PermissionsStep(
 
     PermissionSectionHeader("Media")
     PermissionToggleRow(
-      title = "Microphone",
+      title = stringResource(R.string.permission_microphone),
       subtitle = "Voice transcription in the Voice tab",
       checked = enableMicrophone,
       granted = isPermissionGranted(context, Manifest.permission.RECORD_AUDIO),
@@ -1509,7 +1510,7 @@ private fun PermissionsStep(
     )
     InlineDivider()
     PermissionToggleRow(
-      title = "Camera",
+      title = stringResource(R.string.permission_camera),
       subtitle = "Take photos and short video clips",
       checked = enableCamera,
       granted = isPermissionGranted(context, Manifest.permission.CAMERA),
@@ -1517,7 +1518,7 @@ private fun PermissionsStep(
     )
     InlineDivider()
     PermissionToggleRow(
-      title = "Photos",
+      title = stringResource(R.string.permission_photos),
       subtitle = "Access your recent photos",
       checked = enablePhotos,
       granted = isPermissionGranted(context, photosPermission),
@@ -1526,7 +1527,7 @@ private fun PermissionsStep(
 
     PermissionSectionHeader("Personal Data")
     PermissionToggleRow(
-      title = "Contacts",
+      title = stringResource(R.string.permission_contacts),
       subtitle = "Search and add contacts",
       checked = enableContacts,
       granted = contactsGranted,
@@ -1534,7 +1535,7 @@ private fun PermissionsStep(
     )
     InlineDivider()
     PermissionToggleRow(
-      title = "Calendar",
+      title = stringResource(R.string.permission_calendar),
       subtitle = "Read and create calendar events",
       checked = enableCalendar,
       granted = calendarGranted,
@@ -1542,7 +1543,7 @@ private fun PermissionsStep(
     )
     InlineDivider()
     PermissionToggleRow(
-      title = "Motion",
+      title = stringResource(R.string.permission_motion),
       subtitle = "Activity and step tracking",
       checked = enableMotion,
       granted = motionGranted,
@@ -1553,7 +1554,7 @@ private fun PermissionsStep(
     if (smsAvailable) {
       InlineDivider()
       PermissionToggleRow(
-        title = "SMS",
+        title = stringResource(R.string.permission_sms),
         subtitle = "Send and search text messages via the gateway",
         checked = enableSms,
         granted =
@@ -1565,7 +1566,7 @@ private fun PermissionsStep(
     if (callLogAvailable) {
       InlineDivider()
       PermissionToggleRow(
-        title = "Call Log",
+        title = stringResource(R.string.permission_call_log),
         subtitle = "callLog.search",
         checked = enableCallLog,
         granted = isPermissionGranted(context, Manifest.permission.READ_CALL_LOG),
@@ -1655,13 +1656,13 @@ private fun FinalStep(
     )
     SummaryCard(
       icon = Icons.Default.Cloud,
-      label = "Gateway",
+      label = stringResource(R.string.gateway_step),
       value = gatewayAddress,
       accentColor = Color(0xFF7C5AC7),
     )
     SummaryCard(
       icon = Icons.Default.Security,
-      label = "Permissions",
+      label = stringResource(R.string.permissions_step),
       value = enabledPermissions,
       accentColor = onboardingSuccess,
     )
