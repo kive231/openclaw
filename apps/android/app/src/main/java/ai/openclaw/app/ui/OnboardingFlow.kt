@@ -1640,7 +1640,7 @@ private fun FinalStep(
 ) {
   val context = androidx.compose.ui.platform.LocalContext.current
   val gatewayAddress = parsedGateway?.displayUrl ?: "Invalid gateway URL"
-  val statusLabel = gatewayStatusForDisplay(statusText)
+  val statusLabel = gatewayStatusForDisplay(statusText, offlineLabel = stringResource(R.string.offline_status))
   val showDiagnostics = gatewayStatusHasDiagnostics(statusText)
   val pairingRequired = gatewayStatusLooksLikePairing(statusText)
 
