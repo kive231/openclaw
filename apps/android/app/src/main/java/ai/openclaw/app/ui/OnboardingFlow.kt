@@ -1,4 +1,5 @@
 package ai.openclaw.app.ui
+import ai.openclaw.app.R
 
 import ai.openclaw.app.LocationMode
 import ai.openclaw.app.MainViewModel
@@ -85,6 +86,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -495,13 +497,13 @@ fun OnboardingFlow(
     AlertDialog(
       onDismissRequest = { viewModel.declineGatewayTrustPrompt() },
       containerColor = onboardingSurface,
-      title = { Text("Trust this gateway?", style = onboardingHeadlineStyle, color = onboardingText) },
+      title = { Text(stringResource(R.string.trust_this_gateway), style = onboardingHeadlineStyle, color = onboardingText) },
       text = {
         val message =
           if (prompt.previousFingerprintSha256.isNullOrBlank()) {
-            "First-time TLS connection.\n\nVerify this SHA-256 fingerprint before trusting:\n${prompt.fingerprintSha256}"
+            stringResource(R.string.trust_first_time, prompt.fingerprintSha256)
           } else {
-            "The gateway TLS certificate changed. Only continue if you expected this.\n\nOld SHA-256 fingerprint:\n${prompt.previousFingerprintSha256}\n\nNew SHA-256 fingerprint:\n${prompt.fingerprintSha256}"
+            stringResource(R.string.trust_cert_changed, prompt.previousFingerprintSha256, prompt.fingerprintSha256)
           }
         Text(
           message,
@@ -514,7 +516,7 @@ fun OnboardingFlow(
           onClick = { viewModel.acceptGatewayTrustPrompt() },
           colors = ButtonDefaults.textButtonColors(contentColor = onboardingAccent),
         ) {
-          Text("Trust and continue")
+          Text(stringResource(R.string.trust_and_continue_onboarding))
         }
       },
       dismissButton = {
@@ -522,7 +524,7 @@ fun OnboardingFlow(
           onClick = { viewModel.declineGatewayTrustPrompt() },
           colors = ButtonDefaults.textButtonColors(contentColor = onboardingTextSecondary),
         ) {
-          Text("Cancel")
+          Text(stringResource(R.string.cancel_onboarding))
         }
       },
     )
@@ -812,7 +814,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.Gateway -> {
@@ -867,7 +869,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.Permissions -> {
@@ -881,7 +883,7 @@ fun OnboardingFlow(
               shape = RoundedCornerShape(14.dp),
               colors = onboardingPrimaryButtonColors(),
             ) {
-              Text("Next", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.next), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           OnboardingStep.FinalCheck -> {
@@ -892,7 +894,7 @@ fun OnboardingFlow(
                 shape = RoundedCornerShape(14.dp),
                 colors = onboardingPrimaryButtonColors(),
               ) {
-                Text("Finish", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+                Text(stringResource(R.string.finish), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
               }
             } else {
               Button(
@@ -943,7 +945,7 @@ fun OnboardingFlow(
                 shape = RoundedCornerShape(14.dp),
                 colors = onboardingPrimaryButtonColors(),
               ) {
-                Text("Connect", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+                Text(stringResource(R.string.connect), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
               }
             }
           }
@@ -1097,10 +1099,10 @@ private fun GatewayStep(
       shape = RoundedCornerShape(12.dp),
       colors = onboardingPrimaryButtonColors(),
     ) {
-      Text("Scan QR code", style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
+      Text(stringResource(R.string.scan_qr_code), style = onboardingHeadlineStyle.copy(fontWeight = FontWeight.Bold))
     }
     if (!resolvedEndpoint.isNullOrBlank()) {
-      Text("QR captured. Review endpoint below.", style = onboardingCalloutStyle, color = onboardingSuccess)
+      Text(stringResource(R.string.qr_captured), style = onboardingCalloutStyle, color = onboardingSuccess)
       ResolvedEndpoint(endpoint = resolvedEndpoint)
     }
 
@@ -1117,7 +1119,7 @@ private fun GatewayStep(
         horizontalArrangement = Arrangement.SpaceBetween,
       ) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-          Text("Advanced setup", style = onboardingHeadlineStyle, color = onboardingText)
+          Text(stringResource(R.string.advanced_setup), style = onboardingHeadlineStyle, color = onboardingText)
           Text(
             "Paste setup code or enter host/port manually. Private LAN ws:// is supported; Tailscale/public hosts need wss://.",
             style = onboardingCaption1Style,
@@ -1137,7 +1139,7 @@ private fun GatewayStep(
         GatewayModeToggle(inputMode = inputMode, onInputModeChange = onInputModeChange)
 
         if (inputMode == GatewayInputMode.SetupCode) {
-          Text("SETUP CODE", style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
+          Text(stringResource(R.string.setup_code_label), style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
           OutlinedTextField(
             value = setupCode,
             onValueChange = onSetupCodeChange,
@@ -1174,11 +1176,11 @@ private fun GatewayStep(
             })
           }
 
-          Text("HOST", style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
+          Text(stringResource(R.string.host_label), style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
           OutlinedTextField(
             value = manualHost,
             onValueChange = onManualHostChange,
-            placeholder = { Text("10.0.2.2", color = onboardingTextTertiary, style = onboardingBodyStyle) },
+            placeholder = { Text(stringResource(R.string.host_placeholder), color = onboardingTextTertiary, style = onboardingBodyStyle) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
@@ -1218,7 +1220,7 @@ private fun GatewayStep(
             horizontalArrangement = Arrangement.SpaceBetween,
           ) {
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-              Text("Use TLS", style = onboardingHeadlineStyle, color = onboardingText)
+              Text(stringResource(R.string.use_tls), style = onboardingHeadlineStyle, color = onboardingText)
               Text(
                 "Turn this on for Tailscale or public hosts. Private LAN ws:// remains supported.",
                 style = onboardingCalloutStyle.copy(lineHeight = 18.sp),
@@ -1233,11 +1235,11 @@ private fun GatewayStep(
             )
           }
 
-          Text("TOKEN (OPTIONAL)", style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
+          Text(stringResource(R.string.token_label), style = onboardingCaption1Style.copy(letterSpacing = 0.9.sp), color = onboardingTextSecondary)
           OutlinedTextField(
             value = gatewayToken,
             onValueChange = onTokenChange,
-            placeholder = { Text("token", color = onboardingTextTertiary, style = onboardingBodyStyle) },
+            placeholder = { Text(stringResource(R.string.token), color = onboardingTextTertiary, style = onboardingBodyStyle) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
@@ -1255,7 +1257,7 @@ private fun GatewayStep(
           OutlinedTextField(
             value = gatewayPassword,
             onValueChange = onPasswordChange,
-            placeholder = { Text("password", color = onboardingTextTertiary, style = onboardingBodyStyle) },
+            placeholder = { Text(stringResource(R.string.password), color = onboardingTextTertiary, style = onboardingBodyStyle) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
@@ -1572,7 +1574,7 @@ private fun PermissionsStep(
         onCheckedChange = onCallLogChange,
       )
     }
-    Text("All settings can be changed later in Settings.", style = onboardingCalloutStyle, color = onboardingTextSecondary)
+    Text(stringResource(R.string.settings_change_later), style = onboardingCalloutStyle, color = onboardingTextSecondary)
   }
 }
 
@@ -1645,7 +1647,7 @@ private fun FinalStep(
   }
 
   Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-    Text("Review", style = onboardingTitle1Style, color = onboardingText)
+    Text(stringResource(R.string.review), style = onboardingTitle1Style, color = onboardingText)
 
     SummaryCard(
       icon = Icons.Default.Link,
@@ -1726,7 +1728,7 @@ private fun FinalStep(
             )
           }
           Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text("Connected", style = onboardingHeadlineStyle, color = onboardingSuccess)
+            Text(stringResource(R.string.connected), style = onboardingHeadlineStyle, color = onboardingSuccess)
             Text(
               serverName ?: remoteAddress ?: "gateway",
               style = onboardingCalloutStyle,
@@ -1781,7 +1783,7 @@ private fun FinalStep(
               )
             }
           }
-          Text("Status", style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
+          Text(stringResource(R.string.status)), style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
           Surface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
@@ -1796,7 +1798,7 @@ private fun FinalStep(
             )
           }
           if (showDiagnostics) {
-            Text("Error", style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
+            Text(stringResource(R.string.error), style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
             Text(
               "OpenClaw Android ${openClawAndroidVersionLabel()}",
               style = onboardingCaption1Style,
@@ -1818,7 +1820,7 @@ private fun FinalStep(
             ) {
               Icon(Icons.Default.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp))
               Spacer(modifier = Modifier.width(8.dp))
-              Text("Copy Report for Claw", style = onboardingCalloutStyle.copy(fontWeight = FontWeight.Bold))
+              Text(stringResource(R.string.copy_report_for_claw), style = onboardingCalloutStyle.copy(fontWeight = FontWeight.Bold))
             }
           }
           if (pairingRequired) {

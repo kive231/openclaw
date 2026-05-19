@@ -1,5 +1,6 @@
 package ai.openclaw.app.ui.chat
 
+import ai.openclaw.app.R
 import ai.openclaw.app.chat.ChatMessage
 import ai.openclaw.app.chat.ChatPendingToolCall
 import ai.openclaw.app.ui.mobileBorder
@@ -24,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -106,13 +108,13 @@ private fun EmptyChatHint(
       modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
       verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-      Text("No messages yet", style = mobileHeadline, color = mobileText)
+      Text(stringResource(R.string.no_messages_yet), style = mobileHeadline, color = mobileText)
       Text(
         text =
           if (healthOk) {
-            "Send the first prompt to start this session."
+            stringResource(R.string.send_first_prompt)
           } else {
-            "Connect gateway first, then return to chat."
+            stringResource(R.string.connect_gateway_first)
           },
         style = mobileCallout,
         color = mobileTextSecondary,
