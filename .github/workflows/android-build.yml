@@ -34,22 +34,28 @@ jobs:
           mkdir -p $HOME/.android/sdk
           cd $HOME/.android/sdk
           curl -sLo cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-12266719_latest.zip
-          unzip -q cmdline-tools.zip
+          unzip -qo cmdline-tools.zip
           mkdir -p cmdline-tools/latest
           mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
           export ANDROID_SDK_ROOT=$HOME/.android/sdk
           export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-          echo "y" | sdkmanager "platforms;android-36" "build-tools;36.0.0" "platforms;android-35" "build-tools;35.0.0" --sdk_root=$ANDROID_SDK_ROOT
+          yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-36" "build-tools;36.0.0" || true
+          yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-35" "build-tools;35.0.0" || true
+          yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-34" "build-tools;34.0.0" || true
           echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+
+      - name: Create local.properties
+        run: echo "sdk.dir=${{ env.ANDROID_SDK_ROOT }}" > local.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build debug APK
-        run: ./gradlew :app:assemblePlayDebug
+        run: ./gradlew :app:assemblePlayDebug --stacktrace 2>&1 | tail -100
         env:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+          CI: true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
