@@ -1,6 +1,9 @@
-name: Build Android APK
+name: Android APK Build
 
 on:
+  push:
+    branches:
+      - 'feat/android-zh-localization'
   workflow_dispatch:
     inputs:
       ref:
