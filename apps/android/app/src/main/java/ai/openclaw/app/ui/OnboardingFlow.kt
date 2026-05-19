@@ -1783,7 +1783,7 @@ private fun FinalStep(
               )
             }
           }
-          Text(stringResource(R.string.status)), style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
+          Text(stringResource(R.string.status), style = onboardingCaption1Style.copy(fontWeight = FontWeight.Bold), color = onboardingTextSecondary)
           Surface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),

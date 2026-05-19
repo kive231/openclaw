@@ -347,7 +347,7 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
             CommandBlock("openclaw devices list")
             CommandBlock("openclaw devices approve <requestId>")
           }
-          Text(stringResource(R.string.openclaw_android_version, openClawAndroidVersionLabel())), style = mobileCaption1, color = mobileTextSecondary)
+          Text(stringResource(R.string.openclaw_android_version, openClawAndroidVersionLabel()), style = mobileCaption1, color = mobileTextSecondary)
           Button(
             onClick = {
               copyGatewayDiagnosticsReport(
@@ -423,7 +423,7 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
             )
           }
 
-          Text(stringResource(R.string.run_on_gateway_host)), style = mobileCallout, color = mobileTextSecondary)
+          Text(stringResource(R.string.run_on_gateway_host), style = mobileCallout, color = mobileTextSecondary)
           CommandBlock("openclaw qr --setup-code-only")
           CommandBlock("openclaw qr --json")
           Text(
@@ -481,7 +481,7 @@ fun ConnectTabScreen(viewModel: MainViewModel) {
                 manualHostInput = it
                 validationText = null
               },
-              placeholder = { Text(stringResource(R.string.host_placeholder)), style = mobileBody, color = mobileTextTertiary) },
+              placeholder = { Text(stringResource(R.string.host_placeholder), style = mobileBody, color = mobileTextTertiary) },
               modifier = Modifier.fillMaxWidth(),
               singleLine = true,
               keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
