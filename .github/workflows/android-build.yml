@@ -46,20 +46,19 @@ jobs:
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
 
       - name: Create local.properties
-        run: echo "sdk.dir=${{ env.ANDROID_SDK_ROOT }}" > local.properties
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build debug APK
-        run: ./gradlew :app:assemblePlayDebug --stacktrace 2>&1 | tail -100
+        run: ./gradlew :app:assemblePlayDebug
         env:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
-          CI: true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: openclaw-android-apk
-          path: apps/android/app/build/outputs/apk/play/debug/*.apk
+          path: apps/android/app/build/outputs/apk/**/*.apk
           if-no-files-found: error
