@@ -227,6 +227,7 @@ private fun bubbleStyle(role: String): ChatBubbleStyle =
       )
   }
 
+@Composable
 private fun roleLabel(role: String): String =
   when (role) {
     "user" -> stringResource(R.string.you)
