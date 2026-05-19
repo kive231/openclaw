@@ -115,22 +115,20 @@ fun SettingsSheet(viewModel: MainViewModel) {
       normalizeLocalHourMinute(notificationQuietEndDraft)
     }
   val quietHoursDraftValid = normalizedQuietStartDraft != null && normalizedQuietEndDraft != null
-  val selectedPackagesSummary =
-    remember(notificationForwardingMode, notificationForwardingPackages) {
-      when (notificationForwardingMode) {
-        NotificationPackageFilterMode.Allowlist ->
-          if (notificationForwardingPackages.isEmpty()) {
-            stringResource(R.string.selected_apps_none_allow)
-          } else {
-            stringResource(R.string.selected_app_summary, notificationForwardingPackages.size, stringResource(R.string.apps_allowed))
-          }
-        NotificationPackageFilterMode.Blocklist ->
-          if (notificationForwardingPackages.isEmpty()) {
-            stringResource(R.string.selected_apps_none_block)
-          } else {
-            stringResource(R.string.selected_app_summary, notificationForwardingPackages.size, stringResource(R.string.apps_blocked))
-          }
-      }
+  val selectedPackagesSummary: String =
+    when (notificationForwardingMode) {
+      NotificationPackageFilterMode.Allowlist ->
+        if (notificationForwardingPackages.isEmpty()) {
+          stringResource(R.string.selected_apps_none_allow)
+        } else {
+          stringResource(R.string.selected_app_summary, notificationForwardingPackages.size, stringResource(R.string.apps_allowed))
+        }
+      NotificationPackageFilterMode.Blocklist ->
+        if (notificationForwardingPackages.isEmpty()) {
+          stringResource(R.string.selected_apps_none_block)
+        } else {
+          stringResource(R.string.selected_app_summary, notificationForwardingPackages.size, stringResource(R.string.apps_blocked))
+        }
     }
   val quietHoursCanEnable = notificationForwardingEnabled && quietHoursDraftValid
   val quietHoursDraftDirty =
